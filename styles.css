@@ -135,8 +135,8 @@ button.ghost {
 
 .glass2d {
   position: relative;
-  width: 140px;
-  height: 210px;
+  width: 160px;
+  height: 240px;
 
   /* oben scharf, unten rund */
   border-radius: 0 0 34px 34px;
@@ -203,10 +203,19 @@ button.ghost {
 }
 
 .statsBig {
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  text-align:center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.statsBig > div:first-child {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.statsBig .muted {
+  font-size: 15px;
 }
 
 .statsBig strong { color: var(--text); }
@@ -214,16 +223,17 @@ button.ghost {
 
 /* Plus Button */
 .plusBtn {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
   display: grid;
   place-items: center;
   padding: 0;
+  font-size: 32px;
 }
 
 .plusBtn .plusIcon {
-  font-size: 30px;
+  font-size: 34px;
   line-height: 1;
   transform: translateY(-1px);
 }
@@ -249,3 +259,51 @@ button.ghost {
 }
 
 .item small { color: var(--muted); }
+
+/* =========================
+   Mobile Optimierung (iOS)
+   ========================= */
+@media (max-width: 480px) {
+
+  body {
+    font-size: 16px;
+  }
+
+  header h1 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .card {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .container {
+    padding: 14px 14px 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  input,
+  select {
+    padding: 16px 14px;
+    font-size: 16px;
+    border-radius: 16px;
+  }
+
+  button {
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 18px;
+  }
+
+  .grid {
+    gap: 14px;
+  }
+
+  .card h2 {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+}
