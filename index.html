@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trink-Tracker</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Trinken">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+</head>
+
+<body>
+  <header class="appHeader">
+    <div class="headerLeft">
+      <h1>Trink-Tracker</h1>
+      <div id="todayLabel"></div>
+    </div>
+
+    <!-- Optional: kleine Punkte als Seitenindikator -->
+    <div class="pagerDots" aria-hidden="true">
+      <span class="dot isActive" id="dot0"></span>
+      <span class="dot" id="dot1"></span>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Swipe-Viewport -->
+    <div class="pagerViewport" id="pagerViewport">
+      <div class="pagerTrack" id="pagerTrack">
+
+        <!-- Seite 1: Dashboard -->
+        <section class="page">
+          <div class="card heroCard">
+            <h2>Heute</h2>
+
+            <div class="glassWrap">
+              <div class="glassCenter">
+                <div class="glass2d" id="glass">
+                  <div id="fill" class="fill2d"></div>
+                  <div class="glassOutline"></div>
+                  <div class="glassHighlight"></div>
+                </div>
+              </div>
+
+              <div class="statsBig">
+                <div><strong id="hydrationMl">0</strong> ml</div>
+                <div class="muted">Ziel: <strong id="goalMl">2000</strong> ml · <strong><span id="percent">0</span>%</strong></div>
+              </div>
+
+              <button id="toAddBtn" class="plusBtn" type="button" aria-label="Getränk hinzufügen">
+                <span class="plusIcon">+</span>
+              </button>
+
+              <div class="hint centerHint">Wische nach links oder tippe +, um ein Getränk einzreve.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seite 2: Formularseite -->
+        <section class="page">
+          <section class="card">
+            <div class="rowBetween">
+              <h2>Getränk eintragen</h2>
+              <button id="backBtn" class="ghost" type="button">Zurück</button>
+            </div>
+
+            <form id="drinkForm" class="grid">
+              <label>
+                Menge (ml)
+                <input id="mlInput" type="number" inputmode="numeric" min="10" step="10" placeholder="z.B. 250" required />
+              </label>
+
+              <label>
+                Getränk
+                <select id="typeSelect"></select>
+              </label>
+
+              <label>
+                Hydration-Faktor
+                <input id="factorInput" type="number" min="0" max="1.2" step="0.05" />
+              </label>
+
+              <button type="submit" class="full">Hinzufügen</button>
+            </form>
+
+            <p class="hint">
+              Hydration = ml × Faktor (Wasser=1.0). Du kannst den Faktor auch manuell anpassen.
+            </p>
+          </section>
+
+          <section class="card">
+            <h2>Trinkziel</h2>
+            <form id="goalForm" class="row">
+              <input id="goalInput" type="number" inputmode="numeric" min="250" step="50" placeholder="z.B. 2000" required />
+              <button type="submit">Speichern</button>
+            </form>
+            <p class="hint">Tipp: 2000–3000 ml sind typische Bereiche (je nach Person/Sport).</p>
+          </section>
+
+          <section class="card">
+            <div class="rowBetween">
+              <h2>Einträge</h2>
+              <button id="resetBtn" class="ghost" type="button">Heute zurücksetzen</button>
+            </div>
+
+            <ul id="list" class="list"></ul>
+            <div id="empty" class="hint">Noch keine Einträge.</div>
+          </section>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+  </script>
+</body>
+</html>
