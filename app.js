@@ -165,11 +165,11 @@ function render(state) {
   $("percent").textContent = Math.round(pct);
 
   // Fill height (cap at 100 for visual)
+  // Fill height (cap at 100 for visual)
   const fillPct = state.goalMl > 0 ? clamp((total / state.goalMl) * 100, 0, 100) : 0;
   $("fill").style.height = `${fillPct}%`;
 
-  $("goalInput").value = state.goalMl;
-
+  // Fisch nur anzeigen, wenn wirklich "voll" (>=100%)
   const glassEl = document.getElementById("glass");
   if (fillPct >= 100) glassEl.classList.add("isFull");
   else glassEl.classList.remove("isFull");
