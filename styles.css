@@ -140,10 +140,18 @@ button.ghost {
   padding-bottom: 14px; /* Platz für Schatten */
 }
 
-/* Glas über dem Schatten */
 .glass2d {
   position: relative;
   z-index: 1;
+
+  width: 160px;
+  height: 240px;
+  border-radius: 0 0 34px 34px;
+  overflow: hidden;
+
+  background:
+    radial-gradient(160px 200px at 30% 25%, rgba(255,255,255,0.06), transparent 62%),
+    radial-gradient(180px 220px at 75% 70%, rgba(255,255,255,0.04), transparent 68%);
 }
 
 /* Schatten unter dem Glas */
