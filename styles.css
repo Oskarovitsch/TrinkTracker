@@ -131,7 +131,29 @@ button.ghost {
   gap: 12px;
 }
 
-.glassCenter { display:flex; justify-content:center; width:100%; }
+.glassCenter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  position: relative;
+  padding-bottom: 14px; /* Platz für Schatten */
+}
+
+.glassCenter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.45);
+  filter: blur(10px);
+  opacity: 0.55;
+  pointer-events: none;
+}
 
 .glass2d {
   position: relative;
@@ -380,3 +402,13 @@ body {
   }
 
 }
+
+/* Startseite: Card-Optik entfernen (nur Glas „frei“ im Hintergrund) */
+.page:first-child .heroCard {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
