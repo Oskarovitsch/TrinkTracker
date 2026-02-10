@@ -170,6 +170,10 @@ function render(state) {
 
   $("goalInput").value = state.goalMl;
 
+  const glassEl = document.getElementById("glass");
+  if (fillPct >= 100) glassEl.classList.add("isFull");
+  else glassEl.classList.remove("isFull");
+
   // List
   const list = $("list");
   list.innerHTML = "";

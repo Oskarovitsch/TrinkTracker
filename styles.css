@@ -412,3 +412,44 @@ body {
   padding-right: 0;
 }
 
+.fish {
+  position: absolute;
+  width: 18px;
+  height: 10px;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+
+  /* simple fish shape */
+  background: rgba(255, 180, 0, 0.95);
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.18);
+}
+
+.fish::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 2px;
+  width: 8px;
+  height: 6px;
+  background: rgba(255, 180, 0, 0.95);
+  border-radius: 2px;
+  transform: rotate(20deg);
+}
+
+@keyframes swim {
+  0%   { transform: translate(-50%, 0) translate(40px, -20px) rotate(0deg); }
+  25%  { transform: translate(-50%, 0) translate(10px, -55px) rotate(-12deg); }
+  50%  { transform: translate(-50%, 0) translate(-40px, -20px) rotate(0deg); }
+  75%  { transform: translate(-50%, 0) translate(-10px,  10px) rotate(12deg); }
+  100% { transform: translate(-50%, 0) translate(40px, -20px) rotate(0deg); }
+}
+
+/* Nur wenn Glas voll ist */
+#glass.isFull .fish {
+  opacity: 0.95;
+  animation: swim 2.8s ease-in-out infinite;
+}
