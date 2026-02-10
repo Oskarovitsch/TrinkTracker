@@ -269,7 +269,7 @@ button.ghost {
     font-size: 16px;
   }
 
-  header h1 {
+  .headerLeft h1 {
     font-size: 22px;
     font-weight: 600;
   }
@@ -312,4 +312,71 @@ html,
 body {
   width: 100%;
   overflow-x: hidden; /* verhindert seitliches Scrollen */
+}
+
+/* =========================
+   Seite 2 (Form) kompakter
+   ========================= */
+@media (max-width: 480px) {
+
+  /* Cards auf Seite 2 weniger „luftig“ */
+  .page:nth-child(2) .card {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  /* Überschriften auf Seite 2 etwas kleiner */
+  .page:nth-child(2) .card h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  /* Labels weniger hoch */
+  .page:nth-child(2) label {
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  /* Inputs/Selects auf Seite 2 flacher (weniger Scroll) */
+  .page:nth-child(2) input,
+  .page:nth-child(2) select {
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 16px;
+  }
+
+  /* Primärbutton auf Seite 2: nicht so „Banner“-mäßig */
+  .page:nth-child(2) button.full {
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 16px;
+  }
+
+  /* Hinweistext weniger dominant */
+  .page:nth-child(2) .hint {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+
+  /* Ziel-Row sauberer */
+  .page:nth-child(2) #goalForm {
+    gap: 10px;
+  }
+
+  .page:nth-child(2) #goalForm button {
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 16px;
+  }
+
+  /* Vertikale Abstände zwischen Cards auf Seite 2 etwas kleiner */
+  .page:nth-child(2) {
+    gap: 10px;
+  }
+
+  .page:nth-child(2) .grid {
+    grid-template-columns: 1fr;
+  }
+
 }
