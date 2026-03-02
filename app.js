@@ -15,7 +15,7 @@ const DRINK_TYPES = [
   { name: "🥤 Softdrink", factor: 0.6 },
   { name: "🍺 Bier/Alkohol", factor: 0.4 },
   { name: "🚬 Zigarette", factor: 0 },
-  { name: "🍑 Oskar's Arsch", factor: 100 }
+  { name: "🍑 Oskar's Arsch", factor: 67 }
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -166,9 +166,17 @@ function render(state) {
   $("percent").textContent = Math.round(pct);
 
   // Fill height (cap at 100 for visual)
-  // Fill height (cap at 100 for visual)
   const fillPct = state.goalMl > 0 ? clamp((total / state.goalMl) * 100, 0, 100) : 0;
+  
   $("fill").style.height = `${fillPct}%`;
+
+  // Hintergrund wechseln
+  const body = document.body;
+  if (fillPct >= 100) {
+    body.classList.add("goalReached");
+  } else {
+    body.classList.remove("goalReached");
+  }
 
   // Fisch nur anzeigen, wenn wirklich "voll" (>=100%)
   const glassEl = document.getElementById("glass");
@@ -216,7 +224,7 @@ function initDrinkTypeUI() {
   for (const t of DRINK_TYPES) {
     const opt = document.createElement("option");
     opt.value = t.name;
-    opt.textContent = `${t.name} (Faktor ${t.factor})`;
+    opt.textContent = t.name;
     opt.dataset.factor = String(t.factor);
     sel.appendChild(opt);
   }
