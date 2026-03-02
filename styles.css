@@ -425,6 +425,8 @@ body {
   pointer-events: none;
   z-index: 2;
   box-shadow: 0 0 1px rgba(0,0,0,0.3);
+
+  opacity: 0;
 }
 
 /* Hinterflosse als Spitze am Ende des Fisches, um 45° gedreht */
@@ -463,6 +465,7 @@ body {
 }
 
 #glass.isFull .fish {
+  opacity: 1;
   animation: swimBorder 6s linear infinite;
   transform-origin: center center;
   transform-style: preserve-3d;

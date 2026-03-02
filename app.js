@@ -7,14 +7,15 @@ const DEFAULT_STATE = {
 };
 
 const DRINK_TYPES = [
-  { name: "Wasser", factor: 1.0 },
-  { name: "Sprudel", factor: 1.0 },
-  { name: "Tee", factor: 1.0 },
-  { name: "Kaffee", factor: 0.85 },
-  { name: "Saft", factor: 0.7 },
-  { name: "Softdrink", factor: 0.6 },
-  { name: "Milch", factor: 0.8 },
-  { name: "Bier/Alkohol", factor: 0.4 }
+  { name: "🚰 Wasser", factor: 1.0 },
+  { name: "☕️ Kaffee", factor: 0.85 },
+  { name: "🫖 Tee", factor: 1.0 },
+  { name: "🍵 Matcha Latte (Hafer)", factor: 0.85 },
+  { name: "🧃 Saft", factor: 0.7 },
+  { name: "🥤 Softdrink", factor: 0.6 },
+  { name: "🍺 Bier/Alkohol", factor: 0.4 },
+  { name: "🚬 Zigarette", factor: 0 },
+  { name: "🍑 Oskar's Arsch", factor: 100 }
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -253,46 +254,62 @@ function main() {
 
   // Drink hinzufügen
   $("drinkForm").addEventListener("submit", (ev) => {
-    ev.preventDefault();
-    resetForNewDayIfNeeded(state);
+  ev.preventDefault();
+  resetForNewDayIfNeeded(state);
 
-    const ml = Number($("mlInput").value);
-    const type = $("typeSelect").value;
-    const factor = Number($("factorInput").value);
+  const ml = Number($("mlInput").value);
+  const type = $("typeSelect").value;
 
-    if (!Number.isFinite(ml) || ml <= 0) return;
-    if (!Number.isFinite(factor) || factor < 0 || factor > 1.2) return;
+  // Prüfen, dass ml gültig ist
+  if (!Number.isFinite(ml) || ml <= 0) return;
 
-    const hydration = ml * factor;
+  // Faktor direkt aus DRINK_TYPES nehmen
+  const drink = DRINK_TYPES.find(d => d.name === type);
+  if (!drink) return;
 
-    state.entries.push({
-      id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
-      ts: Date.now(),
-      type,
-      ml: Math.round(ml),
-      factor: Math.round(factor * 100) / 100,
-      hydration
-    });
+  const factor = drink.factor;
 
-    saveState(state);
-    $("mlInput").value = "";
+  const hydration = ml * factor;
 
-    render(state);
-
-    // nach Hinzufügen automatisch zurück zur Startseite
-    setPage(0);
+  state.entries.push({
+    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
+    ts: Date.now(),
+    type,
+    ml: Math.round(ml),
+    factor: Math.round(factor * 100) / 100,
+    hydration
   });
 
-  // Reset
-  $("resetBtn").addEventListener("click", () => {
-    state.entries = [];
-    state.dayKey = getLocalDayKey();
-    saveState(state);
-    render(state);
-  });
+  saveState(state);
+
+  // Eingabefelder leeren
+  $("mlInput").value = "";
+
+  // Render aktualisieren
+  render(state);
+
+  // automatisch zurück zur Startseite
+  setPage(0);
+});
+
+  saveState(state);
+  $("mlInput").value = "";
 
   render(state);
-  scheduleMidnightReset(state);
+
+  // nach Hinzufügen automatisch zurück zur Startseite
+  setPage(0);
+
+// Reset
+$("resetBtn").addEventListener("click", () => {
+  state.entries = [];
+  state.dayKey = getLocalDayKey();
+  saveState(state);
+  render(state);
+});
+
+render(state);
+scheduleMidnightReset(state);
 }
 
 main();

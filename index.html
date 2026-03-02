@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="de">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,7 +51,8 @@
 
               <div class="statsBig">
                 <div><strong id="hydrationMl">0</strong> ml</div>
-                <div class="muted">Ziel: <strong id="goalMl">2000</strong> ml · <strong><span id="percent">0</span>%</strong></div>
+                <div class="muted">Ziel: <strong id="goalMl">2000</strong> ml · <strong><span
+                      id="percent">0</span>%</strong></div>
               </div>
 
               <button id="toAddBtn" class="plusBtn" type="button" aria-label="Getränk hinzufügen">
@@ -73,7 +75,8 @@
             <form id="drinkForm" class="grid">
               <label>
                 Menge (ml)
-                <input id="mlInput" type="number" inputmode="numeric" min="10" step="10" placeholder="z.B. 250" required />
+                <input id="mlInput" type="number" inputmode="numeric" min="10" step="10" placeholder="z.B. 250"
+                  required />
               </label>
 
               <label>
@@ -90,18 +93,59 @@
             </form>
 
             <p class="hint">
-              💧 Hydration-Faktor gibt an wieviel von dem Getränk tatsächlich als Flüssigkeit aufgenommen werden 💧
+              💧 Hydration-Faktor gibt an wieviel vom Getränk tatsächlich als Flüssigkeit aufgenommen wird 💧
             </p>
           </section>
 
           <section class="card">
             <h2>Trinkziel</h2>
             <form id="goalForm" class="row">
-              <input id="goalInput" type="number" inputmode="numeric" min="250" step="50" placeholder="z.B. 2000" required />
+              <input id="goalInput" type="number" inputmode="numeric" min="250" step="50" placeholder="z.B. 2000"
+                required />
               <button type="submit">Speichern</button>
             </form>
-            <p class="hint">⚠️ Tipp: 2000–3000 ml sind typisch. Ein Glas reicht nicht. Sei kein Kamel 🐪</p>
+            <p class="hint">💧 Tipp: 2000–3000 ml sind typisch 💧</p>
+            <p class="hint">Ein Glas am Tag reicht nicht! Du bist kein Kamel 🐪</p>
+            <!-- Feedback-Absatz -->
+            <p id="goalFeedback" class="hint slideFeedback">Ziel gespeichert!</p>
           </section>
+
+          <style>
+            /* Feedback initial versteckt und oben außerhalb */
+            .slideFeedback {
+              position: relative;
+              display: block;
+              opacity: 0;
+              transform: translateY(-10px);
+              color: lightgreen;
+              transition: all 0.4s ease;
+            }
+
+            .slideFeedback.show {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          </style>
+
+          <script>
+            const goalForm = document.getElementById('goalForm');
+            const goalFeedback = document.getElementById('goalFeedback');
+
+            goalForm.addEventListener('submit', (e) => {
+              e.preventDefault(); // Seite nicht neu laden
+              const goalValue = document.getElementById('goalInput').value;
+
+              if (goalValue) {
+                // Feedback anzeigen
+                goalFeedback.classList.add('show');
+
+                // Nach 2 Sekunden wieder ausblenden
+                setTimeout(() => {
+                  goalFeedback.classList.remove('show');
+                }, 2000);
+              }
+            });
+          </script>
 
           <section class="card">
             <div class="rowBetween">
@@ -123,4 +167,5 @@
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
   </script>
 </body>
+
 </html>
